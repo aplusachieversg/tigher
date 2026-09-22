@@ -30,7 +30,7 @@
 const SUPABASE_URL='https://mktszwqyklmrxzynzmtv.supabase.co';
 const SUPABASE_KEY='sb_publishable_b2XJwxjy8jzh6WfrepA5tQ__y9Xab2u';
 const db=supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{global:{headers:{'x-client-info':'aplus-smartmatch-web'}}});
-let primaryId=null,primaryName='',selected=[];
+let primaryId=null,primaryName='',selected=[],lastRows=[],lastScore=null,lastTown='';
 const bands=['REACH FAR','REACH','TARGET','SAFER','SAFER FAR','UNLIKELY'];
 const esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 const status=t=>document.getElementById('status').textContent=t;
@@ -73,7 +73,7 @@ document.addEventListener('click',e=>{if(!e.target.closest('.autocomplete'))docu
 document.getElementById('score').addEventListener('input',()=>{
  const s=+document.getElementById('score').value;document.getElementById('al').style.display=s>=26&&s<=30?'grid':'none';
 });
-document.getElementById('clearBtn').onclick=()=>{selected=[];renderChoices();runMatch()};
+document.getElementById('clearBtn').onclick=()=>{selected=[];if(lastRows.length)renderResults(lastRows,lastScore,lastTown);else renderChoices()};
 document.getElementById('runBtn').onclick=runMatch;
 async function runMatch(){
  const score=+document.getElementById('score').value;
@@ -125,7 +125,11 @@ function renderResults(rows,score,town){
  document.getElementById('results').innerHTML=h;renderChoices();
 }
 function toggle(e){const d=e.nextElementSibling;d.style.display=d.style.display==='block'?'none':'block'}
-function choose(key){if(selected.includes(key))selected=selected.filter(x=>x!==key);else{if(selected.length>=6){alert('You can select up to 6 schools.');return}selected.push(key)}runMatch()}
+function choose(key){
+  if(selected.includes(key)) selected=selected.filter(x=>x!==key);
+  else { if(selected.length>=6){alert('You can select up to 6 schools.');return} selected.push(key); }
+  renderResults(lastRows,lastScore,lastTown);
+}
 function renderChoices(){const e=document.getElementById('choices');e.className=selected.length?'':'empty';e.innerHTML=selected.length?selected.map((x,i)=>'<div class="choice"><b>'+(i+1)+'.</b> '+esc(x.split('|')[0])+'</div>').join(''):'Select up to 6 schools. SmartMatch does not decide the family\'s final six.'}
 (async()=>{ await bootstrapDatabase(); await loadTowns(); })();
 </script>
