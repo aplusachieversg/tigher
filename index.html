@@ -96,7 +96,7 @@ async function runMatch(){
    p_as_of_year:new Date().getFullYear(),
    p_limit_per_band:10
  };
- const {data,error}=await db.rpc('sm_public_match',args);
+ const {data,error}=await db.rpc('aplus_psle_smartmatch_engine_v3',args);
  if(error){status('SmartMatch error: '+error.message);document.getElementById('results').innerHTML='<div class="empty" style="margin-top:20px">No results returned. Check the database sync status.</div>';return}
  status('SmartMatch completed. Results are from the APLUS database.');
  renderResults(data||[],score,town);
