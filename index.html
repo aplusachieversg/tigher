@@ -5,7 +5,7 @@
 <title>APLUS PSLE SmartMatch</title>
 <style>
 *{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,Arial;background:#f5f7fb;color:#172033}.wrap{max-width:1180px;margin:auto;padding:28px 18px 60px}.hero{background:linear-gradient(135deg,#111b3b,#4938a8);color:white;border-radius:24px;padding:34px;box-shadow:0 18px 45px #18203b22}.brand{font-size:12px;font-weight:800;letter-spacing:.12em;opacity:.8}h1{font-size:42px;margin:10px 0 3px}.sub{font-size:19px;opacity:.86}.tag{font-weight:800;margin-top:14px}.form{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:25px}.f label{display:block;font-size:11px;font-weight:800;margin-bottom:6px;opacity:.8}.f input,.f select{width:100%;padding:12px;border:0;border-radius:10px;font-size:14px}.wide{grid-column:span 2}.btn{border:0;border-radius:10px;padding:12px 17px;font-weight:800;cursor:pointer}.go{background:white;color:#30248e}.clear{background:#ffffff22;color:white;border:1px solid #ffffff44}.actions{margin-top:15px;display:flex;gap:9px}.note{margin-top:16px;background:#fff8db;color:#674f00;padding:11px 13px;border-radius:10px;font-size:12px}.status{margin-top:10px;background:#ffffff18;padding:10px;border-radius:10px;font-size:12px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin:20px 0}.stat,.card,.choices{background:white;border:1px solid #e5e8ef;border-radius:16px;padding:16px}.stat b{font-size:21px;display:block}.muted{color:#667085;font-size:12px}.band{margin:20px 0}.bh{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}.bh h2{font-size:18px;margin:0}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}.badge{display:inline-block;padding:5px 9px;border-radius:99px;background:#eeeaff;color:#4938a8;font-size:11px;font-weight:800}.card h3{font-size:16px;margin:9px 0 6px}.meta{font-size:13px;line-height:1.6;color:#667085}.cop{font-weight:800;color:#172033}.loc{margin-top:11px;padding-top:10px;border-top:1px solid #edf0f4;color:#4938a8;font-weight:800;font-size:13px;cursor:pointer}.details{display:none;background:#f7f8fb;border-radius:10px;padding:10px;margin-top:8px;font-size:12px;line-height:1.7}.add{margin-top:10px}.choices{margin-top:25px}.choices h2{margin:0 0 10px}.choice{padding:9px 0;border-bottom:1px solid #edf0f4}.empty{padding:20px;text-align:center;color:#667085;background:#fafbfc;border:1px dashed #d5d9e2;border-radius:10px}.autocomplete{position:relative}.suggestions{position:absolute;z-index:20;left:0;right:0;top:70px;background:white;border-radius:10px;box-shadow:0 12px 30px #11182725;overflow:hidden;color:#172033}.suggestion{padding:11px 13px;border-bottom:1px solid #edf0f4;cursor:pointer}.suggestion:hover{background:#f4f1ff}.selected-school{margin-top:7px;font-size:11px;font-weight:700;color:#e8e4ff}@media(max-width:850px){.form{grid-template-columns:repeat(2,1fr)}.cards{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(2,1fr)}}@media(max-width:560px){h1{font-size:30px}.form,.cards,.stats{grid-template-columns:1fr}.wide{grid-column:span 1}}
-.modulebar{display:flex;justify-content:space-between;align-items:center;margin:0 0 12px;padding:10px 14px;background:#fff;border:1px solid #e5e8ef;border-radius:12px;color:#4938a8;font-size:12px;font-weight:800;letter-spacing:.08em}.modulebar span:last-child{color:#667085;font-weight:600;letter-spacing:0}</style>
+.modulebar{display:flex;justify-content:space-between;align-items:center;margin:0 0 12px;padding:10px 14px;background:#fff;border:1px solid #e5e8ef;border-radius:12px;color:#4938a8;font-size:12px;font-weight:800;letter-spacing:.08em}.modulebar span:last-child{color:#667085;font-weight:600;letter-spacing:0}.printbar{display:flex;justify-content:flex-end;margin-top:12px}.print-report{display:none}@media print{body{background:#fff}.wrap{max-width:none;padding:0}.modulebar,.hero,#results,.choices{display:none!important}.print-report{display:block!important}.print-report h1{font-size:28px;margin:0 0 4px}.print-report .print-brand{font-size:11px;font-weight:800;letter-spacing:.12em}.print-report .print-sub{font-size:14px;color:#667085;margin-bottom:18px}.print-summary{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0 18px}.print-summary div{border:1px solid #ddd;border-radius:8px;padding:8px}.print-summary b{display:block;font-size:12px}.print-summary span{font-size:10px;color:#667085}.print-table{width:100%;border-collapse:collapse;font-size:10px}.print-table th,.print-table td{border:1px solid #d8dce4;padding:7px;text-align:left;vertical-align:top}.print-table th{font-weight:800}.print-band{font-weight:800}.print-note{margin-top:16px;font-size:9px;color:#667085;line-height:1.5}.print-label{font-weight:800}.print-page{page-break-inside:avoid}}
 </head>
 <body><main class="wrap">
 <div class="modulebar"><span>选校匹配模块 / MATCHING MODULE</span><span>APLUS PSLE SmartMatch Engine</span></div><section class="hero">
@@ -23,7 +23,7 @@
 <div class="note"><b>DATABASE BUILD</b> — This page now uses Supabase RPCs for Primary School search, 规划区 / Planning Areas, matching, affiliation, COP, programme type and school location. No demo school list is used.</div>
 </section>
 <div id="results"></div>
-<section class="choices"><h2>我的6所学校选择 / My 6 School Choices</h2><div id="choices" class="empty">Select up to 6 schools. SmartMatch does not decide the family's final six.</div></section>
+<section class="choices"><h2>我的6所学校选择 / My 6 School Choices</h2><div id="choices" class="empty">Select up to 6 schools. SmartMatch does not decide the family's final six.</div><div class="printbar"><button class="btn go" id="printBtn">🖨️ 打印我的6所学校 / Print My 6 Choices</button></div></section><section id="printReport" class="print-report"></section>
 </main>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
@@ -75,6 +75,7 @@ document.getElementById('score').addEventListener('input',()=>{
 });
 document.getElementById('clearBtn').onclick=()=>{selected=[];if(lastRows.length)renderResults(lastRows,lastScore,lastTown);else renderChoices()};
 document.getElementById('runBtn').onclick=runMatch;
+document.getElementById('printBtn').onclick=printMy6;
 async function runMatch(){
  const score=+document.getElementById('score').value;
  const town=document.getElementById('town').value;
@@ -132,7 +133,29 @@ function choose(key){
   else { if(selected.length>=6){alert('You can select up to 6 schools.');return} selected.push(key); }
   renderResults(lastRows,lastScore,lastTown);
 }
-function renderChoices(){const e=document.getElementById('choices');e.className=selected.length?'':'empty';e.innerHTML=selected.length?selected.map((x,i)=>{const parts=x.split('|');const schoolId=parts[0];const programmeType=parts[1];const row=lastRows.find(r=>r.school_id===schoolId&&r.programme_type===programmeType);const name=row?.school_name||schoolId;return '<div class="choice"><b>'+(i+1)+'.</b> '+esc(name)+'</div>'}).join(''):'Select up to 6 schools. SmartMatch does not decide the family\'s final six.'}
+function bandLabel(b){
+ const m={'REACH FAR':'冲高一点 / REACH FAR','REACH':'冲一下 / REACH','TARGET':'目标 / TARGET','SAFER':'稳妥 / SAFER','SAFER FAR':'更稳妥 / SAFER FAR','UNLIKELY':'匹配度较低 / UNLIKELY'};
+ return m[b]||b;
+}
+function renderChoices(){const e=document.getElementById('choices');e.className=selected.length?'':'empty';e.innerHTML=selected.length?selected.map((x,i)=>{const parts=x.split('|');const schoolId=parts[0];const programmeType=parts[1];const row=lastRows.find(r=>r.school_id===schoolId&&r.programme_type===programmeType);const name=row?.school_name||schoolId;return '<div class="choice"><b>'+(i+1)+'.</b> '+esc(name)+(row?' · '+esc(bandLabel(row.match_band)):'')+'</div>'}).join(''):'Select up to 6 schools. SmartMatch does not decide the family\'s final six.';renderPrintReport()}
+function printMy6(){
+ if(!selected.length){alert('Please select at least one school in My 6 first.');return}
+ renderPrintReport();
+ window.print();
+}
+function renderPrintReport(){
+ const box=document.getElementById('printReport');
+ const rows=selected.map(x=>{const parts=x.split('|');return lastRows.find(r=>r.school_id===parts[0]&&r.programme_type===parts[1])}).filter(Boolean);
+ if(!rows.length){box.innerHTML='';return}
+ const hmtl=document.getElementById('hmtl').value||'None / 无';
+ const gender=document.getElementById('gender').value==='GIRL'?'女生 / Girl':'男生 / Boy';
+ const town=document.getElementById('town').value||lastTown||'—';
+ box.innerHTML='<div class="print-brand">APLUS ACHIEVER</div><h1>APLUS PSLE SmartMatch</h1><div class="print-sub">PSLE 中学选校匹配报告 / Secondary School Selection Report</div>'+
+ '<div class="print-summary"><div><b>PSLE Score / PSLE 分数</b><span>'+esc(lastScore??document.getElementById('score').value)+'</span></div><div><b>Primary School / 小学</b><span>'+esc(primaryName||'—')+'</span></div><div><b>HMTL / 高级母语</b><span>'+esc(hmtl)+'</span></div><div><b>Gender / 性别</b><span>'+esc(gender)+'</span></div><div><b>Planning Area / 规划区</b><span>'+esc(town)+'</span></div><div><b>Choices / 学校选择</b><span>'+rows.length+' / 6</span></div></div>'+
+ '<table class="print-table"><thead><tr><th>#</th><th>School / 学校</th><th>Programme / 课程</th><th>Affiliation / 附属</th><th>Reference COP</th><th>Gap / 差距</th><th>SmartMatch</th><th>2024–2025 COP</th><th>Address / 地址</th></tr></thead><tbody>'+
+ rows.map((r,i)=>'<tr class="print-page"><td><b>'+(i+1)+'</b></td><td><b>'+esc(r.school_name)+'</b></td><td>'+esc(r.programme_type==='IP'?'IP Programme / IP 课程':(r.posting_group||'Not applicable / 不适用'))+'</td><td>'+esc(r.affiliation_status)+'</td><td>'+esc(r.latest_cop)+'</td><td>'+(r.cop_gap>0?'+':'')+esc(r.cop_gap)+'</td><td class="print-band"><b>'+esc(bandLabel(r.match_band))+'</b></td><td>'+esc((r.cop_years||[]).map(y=>y.year+': '+y.cop).join(' · ')||'Unavailable / 暂缺')+'</td><td>'+esc(r.address||'Location not available / 地点资料暂缺')+'<br>'+esc(r.planning_area||'')+' '+esc(r.postal_code||'')+'</td></tr>').join('')+
+ '</tbody></table><div class="print-note">SmartMatch labels are data-based matching bands. SmartMatch does not decide the family’s final six choices. COP data shown is from the current APLUS database snapshot.</div>';
+}
 (async()=>{ await bootstrapDatabase(); await loadTowns(); })();
 </script>
 </body></html>
