@@ -8,22 +8,22 @@
 .modulebar{display:flex;justify-content:space-between;align-items:center;margin:0 0 12px;padding:10px 14px;background:#fff;border:1px solid #e5e8ef;border-radius:12px;color:#4938a8;font-size:12px;font-weight:800;letter-spacing:.08em}.modulebar span:last-child{color:#667085;font-weight:600;letter-spacing:0}</style>
 </head>
 <body><main class="wrap">
-<div class="modulebar"><span>MATCHING MODULE</span><span>APLUS PSLE SmartMatch Engine</span></div><section class="hero">
-<div class="brand">APLUS ACHIEVER</div><h1>APLUS PSLE SmartMatch</h1><div class="sub">PSLE Secondary School Selection Engine</div><div class="tag">Match broadly. Filter intelligently. Choose personally.</div>
+<div class="modulebar"><span>选校匹配模块 / MATCHING MODULE</span><span>APLUS PSLE SmartMatch Engine</span></div><section class="hero">
+<div class="brand">APLUS ACHIEVER</div><h1>APLUS PSLE SmartMatch</h1><div class="sub">PSLE 中学选校匹配引擎 / Secondary School Selection Engine</div><div class="tag">广泛匹配 · 智能筛选 · 家长自主选择 / Match broadly · Filter intelligently · Choose personally</div>
 <div class="form">
-<div class="f"><label>PSLE SCORE</label><input id="score" type="number" min="4" max="32" value="7"></div>
-<div class="f"><label>HMTL</label><select id="hmtl"><option value="">No HMTL</option><option>Distinction</option><option>Merit</option><option>Pass</option></select></div>
-<div class="f"><label>GENDER</label><select id="gender"><option value="BOY">Boy</option><option value="GIRL">Girl</option></select></div>
-<div class="f"><label>TOWN / PLANNING AREA</label><select id="town"><option value="">Loading…</option></select></div>
-<div class="f autocomplete"><label>PRIMARY SCHOOL</label><input id="primary" autocomplete="off" placeholder="Type e.g. wood"><div id="suggestions" class="suggestions" style="display:none"></div><div id="selectedSchool" class="selected-school"></div></div>
+<div class="f"><label>PSLE 分数 / PSLE SCORE</label><input id="score" type="number" min="4" max="32" value="7"></div>
+<div class="f"><label>高级母语 / HMTL</label><select id="hmtl"><option value="">No 高级母语 / HMTL</option><option>Distinction</option><option>Merit</option><option>Pass</option></select></div>
+<div class="f"><label>性别 / GENDER</label><select id="gender"><option value="BOY">男生 / Boy</option><option value="GIRL">女生 / Girl</option></select></div>
+<div class="f"><label>地区 / 规划区 · TOWN / PLANNING AREA</label><select id="town"><option value="">Loading…</option></select></div>
+<div class="f autocomplete"><label>小学 / PRIMARY SCHOOL</label><input id="primary" autocomplete="off" placeholder="Type e.g. wood"><div id="suggestions" class="suggestions" style="display:none"></div><div id="selectedSchool" class="selected-school"></div></div>
 </div>
-<div id="al" class="form" style="display:none"><div class="f"><label>ENGLISH AL</label><select id="eng"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option></select></div><div class="f"><label>MATHEMATICS AL</label><select id="math"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option></select></div></div>
-<div class="actions"><button class="btn go" id="runBtn">Find Matching Schools</button><button class="btn clear" id="clearBtn">Clear My 6</button></div>
+<div id="al" class="form" style="display:none"><div class="f"><label>英语 AL / ENGLISH AL</label><select id="eng"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option></select></div><div class="f"><label>数学 AL / MATHEMATICS AL</label><select id="math"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option></select></div></div>
+<div class="actions"><button class="btn go" id="runBtn">寻找匹配中学 / Find Matching Schools</button><button class="btn clear" id="clearBtn">清除我的6所学校 / Clear My 6</button></div>
 <div id="status" class="status">Connecting to APLUS SmartMatch database…</div>
-<div class="note"><b>DATABASE BUILD</b> — This page now uses Supabase RPCs for Primary School search, Planning Areas, matching, affiliation, COP, programme type and school location. No demo school list is used.</div>
+<div class="note"><b>DATABASE BUILD</b> — This page now uses Supabase RPCs for Primary School search, 规划区 / Planning Areas, matching, affiliation, COP, programme type and school location. No demo school list is used.</div>
 </section>
 <div id="results"></div>
-<section class="choices"><h2>My 6 School Choices</h2><div id="choices" class="empty">Select up to 6 schools. SmartMatch does not decide the family's final six.</div></section>
+<section class="choices"><h2>我的6所学校选择 / My 6 School Choices</h2><div id="choices" class="empty">Select up to 6 schools. SmartMatch does not decide the family's final six.</div></section>
 </main>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
@@ -45,8 +45,8 @@ async function bootstrapDatabase(){
 }
 async function loadTowns(){
  const {data,error}=await db.rpc('sm_public_planning_areas');
- if(error){status('Database connected, but Planning Areas are not loaded yet.');return}
- const el=document.getElementById('town');el.innerHTML='<option value="">Select Town / Planning Area</option>';
+ if(error){status('Database connected, but 规划区 / Planning Areas are not loaded yet.');return}
+ const el=document.getElementById('town');el.innerHTML='<option value="">选择地区 / 规划区 · Select Town / 规划区 / Planning Area</option>';
  (data||[]).forEach(x=>el.insertAdjacentHTML('beforeend','<option>'+esc(x.planning_area_name)+'</option>'));
  status('APLUS database connection ready.');
 }
@@ -81,7 +81,7 @@ async function runMatch(){
  const gender=document.getElementById('gender').value;
  if(score<4||score>32){alert('PSLE Score must be between 4 and 32.');return}
  if(!primaryId){alert('Please search and select the Primary School first.');return}
- if(!town){alert('Please select a Town / Planning Area.');return}
+ if(!town){alert('Please select a Town / 规划区 / Planning Area.');return}
  if(score>=26&&score<=30){
    if(!document.getElementById('eng').value||!document.getElementById('math').value){alert('English AL and Mathematics AL are required for PSLE scores 26–30.');return}
  }
@@ -102,8 +102,9 @@ async function runMatch(){
  renderResults(data||[],score,town);
 }
 function renderResults(rows,score,town){
+  lastRows=rows||[];lastScore=score;lastTown=town;
  const pool=rows.filter(x=>x.match_band!=='UNLIKELY').length;
- let h='<div class="stats"><div class="stat"><b>'+score+'</b><span class="muted">PSLE Score</span></div><div class="stat"><b>'+esc(town)+'</b><span class="muted">Location Reference</span></div><div class="stat"><b>'+pool+'</b><span class="muted">Broad Match Pool</span></div><div class="stat"><b>'+selected.length+'/6</b><span class="muted">My Choices</span></div></div><p class="muted"><b>PSLE Score + COP = core matching.</b> Planning Area is a comparison reference and does not change the Match Band.</p>';
+ let h='<div class="stats"><div class="stat"><b>'+score+'</b><span class="muted">PSLE 分数 / PSLE Score</span></div><div class="stat"><b>'+esc(town)+'</b><span class="muted">地区参考 / Location Reference</span></div><div class="stat"><b>'+pool+'</b><span class="muted">广泛匹配池 / Broad Match Pool</span></div><div class="stat"><b>'+selected.length+'/6</b><span class="muted">我的选择 / My Choices</span></div></div><p class="muted"><b>PSLE Score + COP = core matching.</b> 规划区 / Planning Area is a comparison reference and does not change the Match Band.</p>';
  bands.forEach(b=>{
    const a=rows.filter(x=>x.match_band===b);
    h+='<section class="band"><div class="bh"><h2>'+b+'</h2><span class="muted">'+a.length+' schools</span></div>';
@@ -113,12 +114,12 @@ function renderResults(rows,score,town){
      const key=x.school_id+'|'+x.programme_type;
      const sel=selected.includes(key);
      h+='<article class="card"><span class="badge">'+esc(x.match_band)+'</span><h3>'+esc(x.school_name)+'</h3>'+
-     '<div class="meta"><span class="cop">Reference COP '+esc(x.latest_cop)+'</span> · Gap '+(x.cop_gap>0?'+':'')+esc(x.cop_gap)+' · '+(x.programme_type==='IP'?'IP Programme':(x.posting_group||'Not applicable'))+'</div>'+
-     '<div class="meta">'+esc(x.programme_type)+' · '+esc(x.affiliation_status)+(x.ip?' · IP school':'')+'</div>'+
-     '<div class="meta">Historical COP: '+esc(x.historical_5y_min)+'–'+esc(x.historical_5y_max)+' · Avg '+esc(x.historical_5y_avg)+'</div>'+
-     '<div class="loc" onclick="toggle(this)">📍 '+esc(x.planning_area||'Not available')+(x.planning_area===town?' · Same planning area':'')+'</div>'+
-     '<div class="details"><b>School Address</b><br>'+esc(x.address||'Not available')+'<br><b>Postal Code</b>: '+esc(x.postal_code||'Not available')+'<br><b>Planning Area</b>: '+esc(x.planning_area||'Not available')+'<br><b>Zone</b>: '+esc(x.zone||'Not available')+'</div>'+
-     '<button class="btn '+(sel?'clear':'go')+' add" onclick="choose('+JSON.stringify(key)+')">'+(sel?'Remove from My 6':'Add to My 6')+'</button></article>';
+     '<div class="meta"><span class="cop">参考分数 / Reference COP '+esc(x.latest_cop)+'</span> · 分数差距 / Gap '+(x.cop_gap>0?'+':'')+esc(x.cop_gap)+' · '+(x.programme_type==='IP'?'IP 课程 / IP Programme':(x.posting_group||'不适用 / Not applicable'))+'</div>'+
+     '<div class="meta">'+esc(x.programme_type)+' · '+esc(x.affiliation_status)+(x.ip?' · IP 学校 / IP school':'')+'</div>'+
+     '<div class="meta">历史 COP: '+esc(x.historical_5y_min)+'–'+esc(x.historical_5y_max)+' · Avg '+esc(x.historical_5y_avg)+'</div>'+
+     '<div class="loc" onclick="toggle(this)">📍 '+esc(x.planning_area||'地点资料暂缺 / Location not available')+(x.planning_area===town?' · 同一规划区 / Same planning area':'')+'</div>'+
+     '<div class="details"><b>学校地址 / School Address</b><br>'+esc(x.address||'地点资料暂缺 / Location not available')+'<br><b>邮编 / Postal Code</b>: '+esc(x.postal_code||'地点资料暂缺 / Location not available')+'<br><b>规划区 / Planning Area</b>: '+esc(x.planning_area||'地点资料暂缺 / Location not available')+'<br><b>区域 / Zone</b>: '+esc(x.zone||'地点资料暂缺 / Location not available')+'</div>'+
+     '<button class="btn '+(sel?'clear':'go')+' add" onclick="choose('+JSON.stringify(key)+')">'+(sel?'从我的6所学校移除 / Remove from My 6':'加入我的6所学校 / Add to My 6')+'</button></article>';
    });
    h+='</div></section>';
  });
