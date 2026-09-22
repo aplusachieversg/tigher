@@ -132,7 +132,7 @@ function choose(key){
   else { if(selected.length>=6){alert('You can select up to 6 schools.');return} selected.push(key); }
   renderResults(lastRows,lastScore,lastTown);
 }
-function renderChoices(){const e=document.getElementById('choices');e.className=selected.length?'':'empty';e.innerHTML=selected.length?selected.map((x,i)=>'<div class="choice"><b>'+(i+1)+'.</b> '+esc(x.split('|')[0])+'</div>').join(''):'Select up to 6 schools. SmartMatch does not decide the family\'s final six.'}
+function renderChoices(){const e=document.getElementById('choices');e.className=selected.length?'':'empty';e.innerHTML=selected.length?selected.map((x,i)=>{const parts=x.split('|');const schoolId=parts[0];const programmeType=parts[1];const row=lastRows.find(r=>r.school_id===schoolId&&r.programme_type===programmeType);const name=row?.school_name||schoolId;return '<div class="choice"><b>'+(i+1)+'.</b> '+esc(name)+'</div>'}).join(''):'Select up to 6 schools. SmartMatch does not decide the family\'s final six.'}
 (async()=>{ await bootstrapDatabase(); await loadTowns(); })();
 </script>
 </body></html>
