@@ -119,7 +119,7 @@ function renderResults(rows,score,town){
      '<div class="meta">历史 COP: '+esc(x.historical_5y_min)+'–'+esc(x.historical_5y_max)+' · Avg '+esc(x.historical_5y_avg)+'</div>'+
      '<div class="loc" onclick="toggle(this)">📍 '+esc(x.planning_area||'地点资料暂缺 / Location not available')+(x.planning_area===town?' · 同一规划区 / Same planning area':'')+'</div>'+
      '<div class="details"><b>学校地址 / School Address</b><br>'+esc(x.address||'地点资料暂缺 / Location not available')+'<br><b>邮编 / Postal Code</b>: '+esc(x.postal_code||'地点资料暂缺 / Location not available')+'<br><b>规划区 / Planning Area</b>: '+esc(x.planning_area||'地点资料暂缺 / Location not available')+'<br><b>区域 / Zone</b>: '+esc(x.zone||'地点资料暂缺 / Location not available')+'</div>'+
-     '<button class="btn '+(sel?'clear':'go')+' add" onclick="choose('+JSON.stringify(key)+')">'+(sel?'从我的6所学校移除 / Remove from My 6':'加入我的6所学校 / Add to My 6')+'</button></article>';
+     '<button class="btn '+(sel?'clear':'go')+' add" onclick="choose(\''+key+'\')">'+(sel?'从我的6所学校移除 / Remove from My 6':'加入我的6所学校 / Add to My 6')+'</button></article>';
    });
    h+='</div></section>';
  });
