@@ -17,8 +17,9 @@
 -- NUS High is connected as an IP school but deliberately has no conventional
 -- PSLE COP row. Do not invent a COP for it.
 --
--- Historical IP COP rows use programme_type='IP' and PG3 only for schema
--- compatibility; engine eligibility for IP is programme-independent.
+-- Historical IP COP rows use programme_type='IP' and posting_group=NULL.
+-- IP is not a PG1/PG2/PG3 posting-group path. Engine eligibility for IP is
+-- programme-independent; MAINSTREAM rows retain PG1/PG2/PG3.
 --
 -- Historical affiliation table:
 create table if not exists public.sm_affiliation_history (
