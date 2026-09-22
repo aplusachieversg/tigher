@@ -29,7 +29,7 @@
 <script>
 const SUPABASE_URL='https://mktszwqyklmrxzynzmtv.supabase.co';
 const SUPABASE_KEY='sb_publishable_b2XJwxjy8jzh6WfrepA5tQ__y9Xab2u';
-const db=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+const db=supabase.createClient(SUPABASE_URL,SUPABASE_KEY,{global:{headers:{'x-client-info':'aplus-smartmatch-web'}}});
 let primaryId=null,primaryName='',selected=[];
 const bands=['REACH FAR','REACH','TARGET','SAFER','SAFER FAR','UNLIKELY'];
 const esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
