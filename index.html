@@ -1,34 +1,123 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>APLUS PSLE SmartMatch</title><style>
-*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,Arial;background:#f5f7fb;color:#172033}.wrap{max-width:1180px;margin:auto;padding:28px 18px 60px}.hero{background:linear-gradient(135deg,#111b3b,#4938a8);color:white;border-radius:24px;padding:34px;box-shadow:0 18px 45px #18203b22}.brand{font-size:12px;font-weight:800;letter-spacing:.12em;opacity:.8}h1{font-size:42px;margin:10px 0 3px}.sub{font-size:19px;opacity:.86}.tag{font-weight:800;margin-top:14px}.form{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:25px}.f label{display:block;font-size:11px;font-weight:800;margin-bottom:6px;opacity:.8}.f input,.f select{width:100%;padding:12px;border:0;border-radius:10px;font-size:14px}.wide{grid-column:span 2}.btn{border:0;border-radius:10px;padding:12px 17px;font-weight:800;cursor:pointer}.go{background:white;color:#30248e}.clear{background:#ffffff22;color:white;border:1px solid #ffffff44}.actions{margin-top:15px;display:flex;gap:9px}.note{margin-top:16px;background:#fff8db;color:#674f00;padding:11px 13px;border-radius:10px;font-size:12px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin:20px 0}.stat,.card,.choices{background:white;border:1px solid #e5e8ef;border-radius:16px;padding:16px}.stat b{font-size:21px;display:block}.muted{color:#667085;font-size:12px}.band{margin:20px 0}.bh{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}.bh h2{font-size:18px;margin:0}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}.badge{display:inline-block;padding:5px 9px;border-radius:99px;background:#eeeaff;color:#4938a8;font-size:11px;font-weight:800}.card h3{font-size:16px;margin:9px 0 6px}.meta{font-size:13px;line-height:1.6;color:#667085}.cop{font-weight:800;color:#172033}.loc{margin-top:11px;padding-top:10px;border-top:1px solid #edf0f4;color:#4938a8;font-weight:800;font-size:13px;cursor:pointer}.details{display:none;background:#f7f8fb;border-radius:10px;padding:10px;margin-top:8px;font-size:12px;line-height:1.7}.add{margin-top:10px}.choices{margin-top:25px}.choices h2{margin:0 0 10px}.choice{padding:9px 0;border-bottom:1px solid #edf0f4}.empty{padding:20px;text-align:center;color:#667085;background:#fafbfc;border:1px dashed #d5d9e2;border-radius:10px}@media(max-width:850px){.form{grid-template-columns:repeat(2,1fr)}.cards{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(2,1fr)}}@media(max-width:560px){h1{font-size:30px}.form,.cards,.stats{grid-template-columns:1fr}.wide{grid-column:span 1}}
-</style></head><body><main class="wrap"><section class="hero"><div class="brand">APLUS ACHIEVER</div><h1>APLUS PSLE SmartMatch</h1><div class="sub">PSLE Secondary School Selection Engine</div><div class="tag">Match broadly. Filter intelligently. Choose personally.</div><div class="form"><div class="f"><label>PSLE SCORE</label><input id="score" type="number" min="4" max="32" value="7"></div><div class="f"><label>HMTL</label><select id="hmtl"><option value="">No HMTL</option><option>Distinction</option><option>Merit</option><option>Pass</option></select></div><div class="f"><label>GENDER</label><select id="gender"><option>Boy</option><option>Girl</option></select></div><div class="f"><label>TOWN / PLANNING AREA</label><select id="town"><option>Woodlands</option><option>Yishun</option><option>Sembawang</option><option>Ang Mo Kio</option><option>Tampines</option><option>Jurong West</option></select></div><div class="f"><label>PRIMARY SCHOOL</label><input id="primary" placeholder="Search / select"></div></div><div id="al" class="form" style="display:none"><div class="f"><label>ENGLISH AL</label><select id="eng"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></div><div class="f"><label>MATHEMATICS AL</label><select id="math"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option></select></div></div><div class="actions"><button class="btn go" onclick="run()">Find Matching Schools</button><button class="btn clear" onclick="selected=[];run()">Clear My 6</button></div><div class="note"><b>TEST BUILD</b> — This standalone GitHub page is the SmartMatch interface. COP values are clearly marked as test values until the APLUS Supabase COP sync is connected.</div></section><div id="results"></div><section class="choices"><h2>My 6 School Choices</h2><div id="choices" class="empty">Select up to 6 schools. SmartMatch does not decide the family's final six.</div></section></main>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>APLUS PSLE SmartMatch</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Inter,system-ui,Arial;background:#f5f7fb;color:#172033}.wrap{max-width:1180px;margin:auto;padding:28px 18px 60px}.hero{background:linear-gradient(135deg,#111b3b,#4938a8);color:white;border-radius:24px;padding:34px;box-shadow:0 18px 45px #18203b22}.brand{font-size:12px;font-weight:800;letter-spacing:.12em;opacity:.8}h1{font-size:42px;margin:10px 0 3px}.sub{font-size:19px;opacity:.86}.tag{font-weight:800;margin-top:14px}.form{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:25px}.f label{display:block;font-size:11px;font-weight:800;margin-bottom:6px;opacity:.8}.f input,.f select{width:100%;padding:12px;border:0;border-radius:10px;font-size:14px}.wide{grid-column:span 2}.btn{border:0;border-radius:10px;padding:12px 17px;font-weight:800;cursor:pointer}.go{background:white;color:#30248e}.clear{background:#ffffff22;color:white;border:1px solid #ffffff44}.actions{margin-top:15px;display:flex;gap:9px}.note{margin-top:16px;background:#fff8db;color:#674f00;padding:11px 13px;border-radius:10px;font-size:12px}.status{margin-top:10px;background:#ffffff18;padding:10px;border-radius:10px;font-size:12px}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin:20px 0}.stat,.card,.choices{background:white;border:1px solid #e5e8ef;border-radius:16px;padding:16px}.stat b{font-size:21px;display:block}.muted{color:#667085;font-size:12px}.band{margin:20px 0}.bh{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px}.bh h2{font-size:18px;margin:0}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}.badge{display:inline-block;padding:5px 9px;border-radius:99px;background:#eeeaff;color:#4938a8;font-size:11px;font-weight:800}.card h3{font-size:16px;margin:9px 0 6px}.meta{font-size:13px;line-height:1.6;color:#667085}.cop{font-weight:800;color:#172033}.loc{margin-top:11px;padding-top:10px;border-top:1px solid #edf0f4;color:#4938a8;font-weight:800;font-size:13px;cursor:pointer}.details{display:none;background:#f7f8fb;border-radius:10px;padding:10px;margin-top:8px;font-size:12px;line-height:1.7}.add{margin-top:10px}.choices{margin-top:25px}.choices h2{margin:0 0 10px}.choice{padding:9px 0;border-bottom:1px solid #edf0f4}.empty{padding:20px;text-align:center;color:#667085;background:#fafbfc;border:1px dashed #d5d9e2;border-radius:10px}.autocomplete{position:relative}.suggestions{position:absolute;z-index:20;left:0;right:0;top:70px;background:white;border-radius:10px;box-shadow:0 12px 30px #11182725;overflow:hidden;color:#172033}.suggestion{padding:11px 13px;border-bottom:1px solid #edf0f4;cursor:pointer}.suggestion:hover{background:#f4f1ff}.selected-school{margin-top:7px;font-size:11px;font-weight:700;color:#e8e4ff}@media(max-width:850px){.form{grid-template-columns:repeat(2,1fr)}.cards{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(2,1fr)}}@media(max-width:560px){h1{font-size:30px}.form,.cards,.stats{grid-template-columns:1fr}.wide{grid-column:span 1}}
+</style>
+</head>
+<body><main class="wrap">
+<section class="hero">
+<div class="brand">APLUS ACHIEVER</div><h1>APLUS PSLE SmartMatch</h1><div class="sub">PSLE Secondary School Selection Engine</div><div class="tag">Match broadly. Filter intelligently. Choose personally.</div>
+<div class="form">
+<div class="f"><label>PSLE SCORE</label><input id="score" type="number" min="4" max="32" value="7"></div>
+<div class="f"><label>HMTL</label><select id="hmtl"><option value="">No HMTL</option><option>Distinction</option><option>Merit</option><option>Pass</option></select></div>
+<div class="f"><label>GENDER</label><select id="gender"><option value="BOY">Boy</option><option value="GIRL">Girl</option></select></div>
+<div class="f"><label>TOWN / PLANNING AREA</label><select id="town"><option value="">Loading…</option></select></div>
+<div class="f autocomplete"><label>PRIMARY SCHOOL</label><input id="primary" autocomplete="off" placeholder="Type e.g. wood"><div id="suggestions" class="suggestions" style="display:none"></div><div id="selectedSchool" class="selected-school"></div></div>
+</div>
+<div id="al" class="form" style="display:none"><div class="f"><label>ENGLISH AL</label><select id="eng"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option></select></div><div class="f"><label>MATHEMATICS AL</label><select id="math"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option></select></div></div>
+<div class="actions"><button class="btn go" id="runBtn">Find Matching Schools</button><button class="btn clear" id="clearBtn">Clear My 6</button></div>
+<div id="status" class="status">Connecting to APLUS SmartMatch database…</div>
+<div class="note"><b>DATABASE BUILD</b> — This page now uses Supabase RPCs for Primary School search, Planning Areas, matching, affiliation, COP, programme type and school location. No demo school list is used.</div>
+</section>
+<div id="results"></div>
+<section class="choices"><h2>My 6 School Choices</h2><div id="choices" class="empty">Select up to 6 schools. SmartMatch does not decide the family's final six.</div></section>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const schools=[
-["Admiralty Secondary School",11,"Woodlands","31 WOODLANDS CRESCENT","737916","NORTH","COED"],
-["Woodlands Ring Secondary School",12,"Woodlands","8 WOODLANDS RING ROAD","738238","NORTH","COED"],
-["Evergreen Secondary School",12,"Woodlands","11 WOODLANDS DRIVE 16","737620","NORTH","COED"],
-["Marsiling Secondary School",13,"Woodlands","2 WOODLANDS CENTRE ROAD","738931","NORTH","COED"],
-["Woodlands Secondary School",14,"Woodlands","11 WOODLANDS AVENUE 1","739066","NORTH","COED"],
-["Riverside Secondary School",14,"Woodlands","3 WOODLANDS STREET 81","738517","NORTH","COED"],
-["Sembawang Secondary School",15,"Sembawang","30 SEMBAWANG DRIVE","757713","NORTH","COED"],
-["Yishun Secondary School",15,"Yishun","4 YISHUN STREET 71","768516","NORTH","COED"],
-["Northland Secondary School",16,"Yishun","3 YISHUN AVENUE 4","768596","NORTH","COED"]
-].map(x=>({name:x[0],cop:x[1],town:x[2],address:x[3],postal:x[4],zone:x[5],gender:x[6]}));
-let selected=[];
-function band(g){if(g<=-3)return"UNLIKELY";if(g===-2)return"REACH FAR";if(g===-1)return"REACH";if(g<=1)return"TARGET";if(g<=3)return"SAFER";return"SAFER FAR"}
-const order=["REACH FAR","REACH","TARGET","SAFER","SAFER FAR","UNLIKELY"];
-function run(){
- const s=+document.getElementById("score").value,town=document.getElementById("town").value,g=document.getElementById("gender").value;
- document.getElementById("al").style.display=s>=26&&s<=30?"grid":"none";
- if(s<4||s>32){alert("PSLE Score must be between 4 and 32.");return}
- const rows=schools.filter(x=>x.gender==="COED"||x.gender===g).map(x=>({...x,gap:x.cop-s,b:band(x.cop-s)}));
- let h='<div class="stats"><div class="stat"><b>'+s+'</b><span class="muted">PSLE Score</span></div><div class="stat"><b>'+town+'</b><span class="muted">Location Reference</span></div><div class="stat"><b>'+rows.filter(x=>x.b!=="UNLIKELY").length+'</b><span class="muted">Broad Match Pool</span></div><div class="stat"><b>'+selected.length+'/6</b><span class="muted">My Choices</span></div></div><p class="muted"><b>Location is a reference, not a ranking factor.</b> Match Band is determined by COP gap.</p>';
- order.forEach(b=>{let a=rows.filter(x=>x.b===b);if(!a.length)return;h+='<section class="band"><div class="bh"><h2>'+b+'</h2><span class="muted">'+a.length+' schools</span></div><div class="cards">';
- a.forEach(x=>{let sel=selected.includes(x.name);h+='<article class="card"><span class="badge">'+x.b+'</span><h3>'+x.name+'</h3><div class="meta"><span class="cop">Reference COP '+x.cop+'</span> · Gap '+(x.gap>0?"+":"")+x.gap+'</div><div class="meta">Programme pathway: IP / Mainstream shown separately in connected database</div><div class="loc" onclick="toggle(this)">📍 '+x.town+(x.town===town?" · Same planning area":"")+'</div><div class="details"><b>School Address</b><br>'+x.address+'<br><b>Postal Code</b>: '+x.postal+'<br><b>Planning Area</b>: '+x.town+'<br><b>Zone</b>: '+x.zone+'</div><button class="btn '+(sel?"clear":"go")+' add" onclick="choose('+JSON.stringify(x.name)+')">'+(sel?"Remove from My 6":"Add to My 6")+'</button></article>'});
- h+='</div></section>'});
- document.getElementById("results").innerHTML=h;renderChoices()
+const SUPABASE_URL='https://mktszwqyklmrxzynzmtv.supabase.co';
+const SUPABASE_KEY='sb_publishable_b2XJwxjy8jzh6WfrepA5tQ__y9Xab2u';
+const db=supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+let primaryId=null,primaryName='',selected=[];
+const bands=['REACH FAR','REACH','TARGET','SAFER','SAFER FAR','UNLIKELY'];
+const esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const status=t=>document.getElementById('status').textContent=t;
+async function loadTowns(){
+ const {data,error}=await db.rpc('sm_public_planning_areas');
+ if(error){status('Database connected, but Planning Areas are not loaded yet.');return}
+ const el=document.getElementById('town');el.innerHTML='<option value="">Select Town / Planning Area</option>';
+ (data||[]).forEach(x=>el.insertAdjacentHTML('beforeend','<option>'+esc(x.planning_area_name)+'</option>'));
+ status('APLUS database connection ready.');
 }
-function toggle(e){let d=e.nextElementSibling;d.style.display=d.style.display==="block"?"none":"block"}
-function choose(n){if(selected.includes(n))selected=selected.filter(x=>x!==n);else{if(selected.length>=6){alert("You can select up to 6 schools.");return}selected.push(n)}run()}
-function renderChoices(){let e=document.getElementById("choices");e.className=selected.length?"":"empty";e.innerHTML=selected.length?selected.map((x,i)=>'<div class="choice"><b>'+(i+1)+'.</b> '+x+'</div>').join(""):"Select up to 6 schools. SmartMatch does not decide the family's final six."}
-run();
-</script></body></html>
+let timer;
+document.getElementById('primary').addEventListener('input',e=>{
+ clearTimeout(timer);primaryId=null;primaryName='';document.getElementById('selectedSchool').textContent='';
+ const q=e.target.value.trim();if(q.length<2){document.getElementById('suggestions').style.display='none';return}
+ timer=setTimeout(()=>searchPrimary(q),220);
+});
+async function searchPrimary(q){
+ const {data,error}=await db.rpc('sm_public_primary_search',{p_query:q,p_limit:12});
+ const box=document.getElementById('suggestions');
+ if(error){box.innerHTML='<div class="suggestion">Database search error</div>';box.style.display='block';return}
+ if(!data?.length){box.innerHTML='<div class="suggestion">No primary school found</div>';box.style.display='block';return}
+ box.innerHTML=data.map(x=>'<div class="suggestion" data-id="'+x.primary_school_id+'" data-name="'+esc(x.school_name)+'"><b>'+esc(x.school_name)+'</b><br><span class="muted">'+esc(x.planning_area||'')+' · '+esc(x.address||'')+'</span></div>').join('');
+ box.style.display='block';
+ box.querySelectorAll('.suggestion[data-id]').forEach(el=>el.onclick=()=>{
+   primaryId=el.dataset.id;primaryName=el.dataset.name;document.getElementById('primary').value=primaryName;
+   document.getElementById('selectedSchool').textContent='✓ Selected: '+primaryName;
+   box.style.display='none';
+ });
+}
+document.addEventListener('click',e=>{if(!e.target.closest('.autocomplete'))document.getElementById('suggestions').style.display='none'});
+document.getElementById('score').addEventListener('input',()=>{
+ const s=+document.getElementById('score').value;document.getElementById('al').style.display=s>=26&&s<=30?'grid':'none';
+});
+document.getElementById('clearBtn').onclick=()=>{selected=[];renderChoices();runMatch()};
+document.getElementById('runBtn').onclick=runMatch;
+async function runMatch(){
+ const score=+document.getElementById('score').value;
+ const town=document.getElementById('town').value;
+ const gender=document.getElementById('gender').value;
+ if(score<4||score>32){alert('PSLE Score must be between 4 and 32.');return}
+ if(!primaryId){alert('Please search and select the Primary School first.');return}
+ if(!town){alert('Please select a Town / Planning Area.');return}
+ if(score>=26&&score<=30){
+   if(!document.getElementById('eng').value||!document.getElementById('math').value){alert('English AL and Mathematics AL are required for PSLE scores 26–30.');return}
+ }
+ status('Running SmartMatch from APLUS database…');
+ const args={
+   p_psle_score:score,
+   p_hmtl_grade:document.getElementById('hmtl').value||null,
+   p_gender:gender,
+   p_primary_school_id:primaryId,
+   p_english_al:score>=26&&score<=30?+document.getElementById('eng').value:null,
+   p_mathematics_al:score>=26&&score<=30?+document.getElementById('math').value:null,
+   p_as_of_year:new Date().getFullYear(),
+   p_limit_per_band:10
+ };
+ const {data,error}=await db.rpc('sm_public_match',args);
+ if(error){status('SmartMatch error: '+error.message);document.getElementById('results').innerHTML='<div class="empty" style="margin-top:20px">No results returned. Check the database sync status.</div>';return}
+ status('SmartMatch completed. Results are from the APLUS database.');
+ renderResults(data||[],score,town);
+}
+function renderResults(rows,score,town){
+ const pool=rows.filter(x=>x.match_band!=='UNLIKELY').length;
+ let h='<div class="stats"><div class="stat"><b>'+score+'</b><span class="muted">PSLE Score</span></div><div class="stat"><b>'+esc(town)+'</b><span class="muted">Location Reference</span></div><div class="stat"><b>'+pool+'</b><span class="muted">Broad Match Pool</span></div><div class="stat"><b>'+selected.length+'/6</b><span class="muted">My Choices</span></div></div><p class="muted"><b>PSLE Score + COP = core matching.</b> Planning Area is a comparison reference and does not change the Match Band.</p>';
+ bands.forEach(b=>{
+   const a=rows.filter(x=>x.match_band===b);
+   h+='<section class="band"><div class="bh"><h2>'+b+'</h2><span class="muted">'+a.length+' schools</span></div>';
+   if(!a.length){h+='<div class="empty">No schools in this band from the current database snapshot.</div></section>';return}
+   h+='<div class="cards">';
+   a.forEach(x=>{
+     const key=x.school_id+'|'+x.programme_type;
+     const sel=selected.includes(key);
+     h+='<article class="card"><span class="badge">'+esc(x.match_band)+'</span><h3>'+esc(x.school_name)+'</h3>'+
+     '<div class="meta"><span class="cop">Reference COP '+esc(x.latest_cop)+'</span> · Gap '+(x.cop_gap>0?'+':'')+esc(x.cop_gap)+' · '+esc(x.posting_group)+'</div>'+
+     '<div class="meta">'+esc(x.programme_type)+' · '+esc(x.affiliation_status)+(x.ip?' · IP school':'')+'</div>'+
+     '<div class="meta">Historical COP: '+esc(x.historical_5y_min)+'–'+esc(x.historical_5y_max)+' · Avg '+esc(x.historical_5y_avg)+'</div>'+
+     '<div class="loc" onclick="toggle(this)">📍 '+esc(x.planning_area||'Not available')+(x.planning_area===town?' · Same planning area':'')+'</div>'+
+     '<div class="details"><b>School Address</b><br>'+esc(x.address||'Not available')+'<br><b>Postal Code</b>: '+esc(x.postal_code||'Not available')+'<br><b>Planning Area</b>: '+esc(x.planning_area||'Not available')+'<br><b>Zone</b>: '+esc(x.zone||'Not available')+'</div>'+
+     '<button class="btn '+(sel?'clear':'go')+' add" onclick="choose('+JSON.stringify(key)+')">'+(sel?'Remove from My 6':'Add to My 6')+'</button></article>';
+   });
+   h+='</div></section>';
+ });
+ document.getElementById('results').innerHTML=h;renderChoices();
+}
+function toggle(e){const d=e.nextElementSibling;d.style.display=d.style.display==='block'?'none':'block'}
+function choose(key){if(selected.includes(key))selected=selected.filter(x=>x!==key);else{if(selected.length>=6){alert('You can select up to 6 schools.');return}selected.push(key)}runMatch()}
+function renderChoices(){const e=document.getElementById('choices');e.className=selected.length?'':'empty';e.innerHTML=selected.length?selected.map((x,i)=>'<div class="choice"><b>'+(i+1)+'.</b> '+esc(x.split('|')[0])+'</div>').join(''):'Select up to 6 schools. SmartMatch does not decide the family\'s final six.'}
+loadTowns();
+</script>
+</body></html>
