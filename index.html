@@ -34,6 +34,15 @@ let primaryId=null,primaryName='',selected=[];
 const bands=['REACH FAR','REACH','TARGET','SAFER','SAFER FAR','UNLIKELY'];
 const esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 const status=t=>document.getElementById('status').textContent=t;
+async function bootstrapDatabase(){
+ try{
+   status('Checking APLUS master database and starting official MOE sync if needed…');
+   const {data,error}=await db.functions.invoke('bootstrap-moe-data',{body:{source:'smartmatch-page'}});
+   if(error){console.warn('Bootstrap:',error);status('Database connection ready; master data sync may still be running.');return false}
+   if(data?.sync?.cop_failures) console.warn('MOE sync failures:',data.sync.cop_failures);
+   return true;
+ }catch(e){console.warn('Bootstrap:',e);status('Database connection ready; master data sync may still be running.');return false}
+}
 async function loadTowns(){
  const {data,error}=await db.rpc('sm_public_planning_areas');
  if(error){status('Database connected, but Planning Areas are not loaded yet.');return}
@@ -118,6 +127,6 @@ function renderResults(rows,score,town){
 function toggle(e){const d=e.nextElementSibling;d.style.display=d.style.display==='block'?'none':'block'}
 function choose(key){if(selected.includes(key))selected=selected.filter(x=>x!==key);else{if(selected.length>=6){alert('You can select up to 6 schools.');return}selected.push(key)}runMatch()}
 function renderChoices(){const e=document.getElementById('choices');e.className=selected.length?'':'empty';e.innerHTML=selected.length?selected.map((x,i)=>'<div class="choice"><b>'+(i+1)+'.</b> '+esc(x.split('|')[0])+'</div>').join(''):'Select up to 6 schools. SmartMatch does not decide the family\'s final six.'}
-loadTowns();
+(async()=>{ await bootstrapDatabase(); await loadTowns(); })();
 </script>
 </body></html>
