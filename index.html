@@ -113,7 +113,7 @@ function renderResults(rows,score,town){
      const key=x.school_id+'|'+x.programme_type;
      const sel=selected.includes(key);
      h+='<article class="card"><span class="badge">'+esc(x.match_band)+'</span><h3>'+esc(x.school_name)+'</h3>'+
-     '<div class="meta"><span class="cop">Reference COP '+esc(x.latest_cop)+'</span> · Gap '+(x.cop_gap>0?'+':'')+esc(x.cop_gap)+' · '+esc(x.posting_group)+'</div>'+
+     '<div class="meta"><span class="cop">Reference COP '+esc(x.latest_cop)+'</span> · Gap '+(x.cop_gap>0?'+':'')+esc(x.cop_gap)+' · '+(x.programme_type==='IP'?'IP Programme':(x.posting_group||'Not applicable'))+'</div>'+
      '<div class="meta">'+esc(x.programme_type)+' · '+esc(x.affiliation_status)+(x.ip?' · IP school':'')+'</div>'+
      '<div class="meta">Historical COP: '+esc(x.historical_5y_min)+'–'+esc(x.historical_5y_max)+' · Avg '+esc(x.historical_5y_avg)+'</div>'+
      '<div class="loc" onclick="toggle(this)">📍 '+esc(x.planning_area||'Not available')+(x.planning_area===town?' · Same planning area':'')+'</div>'+
