@@ -1,14 +1,39 @@
 -- APLUS PSLE SmartMatch
 -- Historical COP + Affiliation unified data layer
--- Deployed to Supabase project mktszwqyklmrxzynzmtv on 2026-09-22.
--- 2024 affiliation rows are explicitly marked INFERRED_CONTINUITY until archival
--- primary-secondary affiliation evidence is verified. They remain queryable by year.
+-- Updated 2026-09-22: complete 17-school IP master audit.
 --
--- IMPORTANT PROGRAMME RULE:
+-- PROGRAMME RULE:
 -- IP is a programme-level matching path. IP COP rows must not be filtered out
--- by the student's ordinary PG1/PG2/PG3 eligibility calculation.
--- IP and MAINSTREAM remain separate programme_type values.
-
+-- by ordinary PG1/PG2/PG3 eligibility. MAINSTREAM remains a separate path.
+--
+-- Complete Singapore IP master:
+-- 1 ACS (Independent)
+-- 2 Catholic High
+-- 3 Cedar Girls' Secondary
+-- 4 CHIJ St. Nicholas Girls'
+-- 5 Dunman High
+-- 6 Hwa Chong Institution
+-- 7 Methodist Girls' School (Secondary)
+-- 8 Nanyang Girls' High
+-- 9 National Junior College
+-- 10 NUS High School of Mathematics and Science
+-- 11 Raffles Girls' School (Secondary)
+-- 12 Raffles Institution
+-- 13 River Valley High
+-- 14 Singapore Chinese Girls' School
+-- 15 St. Joseph's Institution
+-- 16 Temasek Junior College
+-- 17 Victoria School
+--
+-- Historical IP COP rows use programme_type='IP' and PG3 only for schema
+-- compatibility; engine eligibility for IP is programme-independent.
+-- HCL D/M is retained where the published COP is HCL-qualified.
+--
+-- NUS High is connected as an IP school but deliberately has no ordinary
+-- PSLE COP row here; its admission route is not represented by a conventional
+-- PSLE posting COP. Do not invent a COP.
+--
+-- Existing historical affiliation table remains:
 create table if not exists public.sm_affiliation_history (
   id uuid primary key default gen_random_uuid(),
   year smallint not null check (year between 2021 and 2100),
@@ -25,28 +50,14 @@ create table if not exists public.sm_affiliation_history (
   unique(year, primary_school_id, secondary_school_id)
 );
 
--- Unified callable layer:
--- sm_historical_smartmatch_data(year, school, posting group, COPs, affiliation mapping)
--- sm_get_student_affiliation_year(primary, secondary, year)
---
--- The live database contains:
--- 2024 COP: 421 rows / 127 schools after restoring missing IP programme rows
--- 2025 COP: 416 rows / 124 schools after restoring missing IP programme rows
--- 2024 affiliation mappings: 31 (INFERRED_CONTINUITY)
--- 2025 affiliation mappings: 31 (VERIFIED)
---
--- Restored historical IP COP rows:
--- Raffles Girls' School (Secondary): 2024 COP 6; 2025 COP 5
--- Nanyang Girls' High School: 2024 non-affiliated 7D / affiliated 8M;
--- 2025 non-affiliated 6M / affiliated 8M.
---
--- These are stored as programme_type='IP' with posting_group='PG3'.
--- The PG label is retained for compatibility with the existing COP schema;
--- the matching engine separately admits IP programmes regardless of ordinary
--- posting-group eligibility.
-
--- Reference sources used for the restored IP rows:
--- 2024:
--- https://www.cutoffpoint.sg/wp-content/uploads/2025/07/2024_Secondary_School_Cut-Off_Point.pdf
--- 2025:
+-- Reference sources:
+-- MOE Education Statistics Digest 2024:
+-- https://www.moe.gov.sg/-/media/files/about-us/education-statistics-digest-2024.pdf
+-- 2024 COP:
+-- https://www.cutoffpoint.sg/secondary-school-cut-off-point-2024/
+-- 2025 IP COP:
 -- https://www.sgexams.com/secondary/ipcop/y2025
+-- 2024 cross-check:
+-- https://www.sgschooling.com/secondary/cop/2024/
+-- 2025 cross-check:
+-- https://www.sgschooling.com/secondary/cop/2025/ip
