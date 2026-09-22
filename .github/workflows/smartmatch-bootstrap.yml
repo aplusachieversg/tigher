@@ -10,13 +10,11 @@ jobs:
   import:
     runs-on: ubuntu-latest
     steps:
-      - name: Import all APLUS SmartMatch master data
+      - name: Import APLUS SmartMatch master data
         run: |
+          set -e
           echo "Starting APLUS SmartMatch master import"
           date -u
-          curl --version
-          curl --fail-with-body --connect-timeout 20 --max-time 900 --retry 5 --retry-delay 10 \
-            -X POST \
-            -H "Accept: application/json" \
-            -H "Content-Type: application/json" \
-            "https://mktszwqyklmrxzynzmtv.supabase.co/functions/v1/sync-moe-school-directory"
+          curl --fail-with-body --connect-timeout 20 --max-time 900 --retry 5 --retry-delay 10             -X POST             -H "Accept: application/json"             -H "Content-Type: application/json"             -d '{"mode":"master"}'             "https://mktszwqyklmrxzynzmtv.supabase.co/functions/v1/sync-moe-school-directory"
+          echo
+          echo "Master import request completed."
