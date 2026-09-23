@@ -168,7 +168,7 @@ async function runMatch(){
  const {data,error}=await db.rpc('aplus_psle_smartmatch_engine_v3',args);
  if(error){status('SmartMatch error: '+error.message);document.getElementById('results').innerHTML='<div class="empty" style="margin-top:20px">No results returned. Check the database sync status.</div>';return}
  status('SmartMatch completed. Results are from the APLUS database.');
- const enriched=await Promise.all((data||[]).map(async x=>{const {data:years}=await db.rpc('sm_public_cop_years_pg',{p_school_id:x.school_id,p_programme_type:x.programme_type,p_posting_group:x.posting_group||null,p_affiliation_status:x.affiliation_status,p_as_of_year:new Date().getFullYear()});return {...x,cop_years:years||[]}}));
+ const enriched=await Promise.all((data||[]).map(async x=>{const {data:years}=await db.rpc('sm_public_cop_years_pg',{p_school_id:x.school_id,p_programme_type:x.programme_type,p_posting_group:x.posting_group||null,p_affiliation_status:x.affiliation_status,p_as_of_year:new Date().getFullYear()});return {...x,match_band:String(x.match_band||'').replace(/_/g,' '),cop_years:years||[]}}));
  renderResults(enriched,score,town);
 }
 function renderResults(rows,score,town){
