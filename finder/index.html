@@ -16,7 +16,7 @@
 </head>
 <body>
 <div class="wrap">
-  <div class="top"><span class="brand">APLUS ACHIEVER</span><span class="live">APLUS Secondary School Finder · Database Edition</span></div>
+  <div class="top"><span class="brand">APLUS ACHIEVER</span><span class="live">APLUS Secondary School Finder · Database Edition · v1.0.1</span></div>
   <section class="hero">
     <div class="brand">INDEPENDENT SCHOOL DISCOVERY ENGINE</div>
     <h1>APLUS Secondary School Finder</h1>
@@ -48,11 +48,10 @@
 
 <div id="modal" class="modal"><div class="sheet"><div class="sheet-head"><div><div id="mType" class="brand"></div><h2 id="mName" style="margin:5px 0"></h2><div id="mMeta" class="small"></div></div><button id="close" class="close">×</button></div><div id="profile" class="profile-grid"></div></div></div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const URL='https://mktszwqyklmrxzynzmtv.supabase.co';
 const KEY='sb_publishable_b2XJwxjy8jzh6WfrepA5tQ__y9Xab2u';
-const db=supabase.createClient(URL,KEY,{global:{headers:{'x-client-info':'aplus-secondary-school-finder'}}});
+const API=URL+'/rest/v1/sf_public_school_finder';
 let schools=[],selected={location:[],schoolType:[],gender:[],pathways:[],subjects:[],programmes:[],cca:[],affiliation:[]};
 const esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 const arr=v=>Array.isArray(v)?v:[]; const na=v=>(v&&String(v).trim())?esc(v):'<span class="na">Not Applicable</span>';
@@ -117,10 +116,15 @@ function openProfile(id){
 }
 function box(title,body){return '<div class="box"><h4>'+title+'</h4><div>'+body+'</div></div>'}
 async function load(){
- setStatus('Loading Finder-owned school profiles…');
- const {data,error}=await db.from('sf_public_school_finder').select('*').order('official_name');
- if(error){setStatus('Finder database error: '+error.message);return}
- schools=data||[];renderFilters();renderSummary();renderResults(schools);setStatus('Connected · '+schools.length+' active secondary school profiles loaded from APLUS Finder database.');
+ try{
+  setStatus('Loading Finder-owned school profiles…');
+  const res=await fetch(API+'?select=*&order=official_name.asc',{method:'GET',headers:{apikey:KEY,Authorization:'Bearer '+KEY,Accept:'application/json'},cache:'no-store'});
+  const text=await res.text();
+  if(!res.ok) throw new Error('HTTP '+res.status+' · '+text.slice(0,220));
+  const data=JSON.parse(text);
+  if(!Array.isArray(data)) throw new Error('Unexpected database response');
+  schools=data;renderFilters();renderSummary();renderResults(schools);setStatus('Connected · '+schools.length+' active secondary school profiles loaded from APLUS Finder database.');
+ }catch(e){console.error(e);setStatus('Finder database error: '+(e&&e.message?e.message:String(e)));}
 }
 document.getElementById('find').onclick=()=>renderResults(schools.filter(matches));
 document.getElementById('showAll').onclick=()=>{selected={location:[],schoolType:[],gender:[],pathways:[],subjects:[],programmes:[],cca:[],affiliation:[]};renderFilters();renderSummary();renderResults(schools)};
