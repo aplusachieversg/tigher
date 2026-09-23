@@ -66,11 +66,17 @@ h1{font-size:40px;line-height:1.12;letter-spacing:-.03em}
 .printbar{margin-top:14px}
 @media(max-width:850px){.wrap{padding-left:15px;padding-right:15px}.hero{padding:26px 22px}.cards{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:560px){.wrap{padding:14px 11px 42px}.modulebar{height:40px}.hero{padding:23px 17px;border-radius:18px}h1{font-size:29px}.sub{font-size:15px}.form,.cards,.stats{grid-template-columns:1fr}.wide{grid-column:span 1}.actions .btn{width:100%}.parent-guide{padding:15px}.choices{padding:15px}}
+
+.disclaimer{position:absolute;right:32px;top:30px;width:370px;max-width:38%;padding:9px 11px;border:1px solid rgba(79,99,140,.16);border-radius:10px;background:rgba(255,255,255,.58);color:#5b6b88;font-size:9px;line-height:1.42;box-shadow:0 4px 14px rgba(70,91,140,.06);backdrop-filter:blur(8px)}
+.disclaimer div+div{margin-top:4px}.disclaimer b{color:#435574;font-weight:800}.hero{position:relative;padding-top:32px;padding-right:420px}
+@media(max-width:900px){.disclaimer{position:static;width:auto;max-width:none;margin:0 0 15px;padding:8px 10px}.hero{padding-right:32px}}
+@media(max-width:560px){.disclaimer{font-size:8.5px;line-height:1.38}.hero{padding-right:17px}}
 </style>
 </head>
 <body><main class="wrap">
 <div class="modulebar"><span>选校匹配 / MATCHING MODULE</span><span>APLUS PSLE SmartMatch Engine</span></div><section class="hero">
 <div class="brand">APLUS ACHIEVER</div><h1>APLUS PSLE SmartMatch</h1><div class="sub">PSLE 中学选校匹配引擎 / Secondary School Selection Engine</div><div class="tag">先看匹配范围，再由家长决定最终6所 / Review the match range, then choose your final 6</div>
+<div class="disclaimer"><div><b>Disclaimer:</b> This tool provides data-based insights for reference only. Results are not a guarantee or professional advice. Please refer to official sources for the latest information.</div><div><b>免责声明：</b> 本工具根据过往数据提供信息及分析，仅供参考。结果不构成专业建议、录取保证或最终推荐。用户应结合自身情况作出判断，并以学校及官方机构发布的最新信息为准。</div></div>
 <div class="form">
 <div class="f"><label>PSLE 分数 / PSLE SCORE</label><input id="score" type="number" min="4" max="32" value="7"></div>
 <div class="f"><label>高级母语 / HMTL</label><select id="hmtl"><option value="">No 高级母语 / HMTL</option><option>Distinction</option><option>Merit</option><option>Pass</option></select></div>
