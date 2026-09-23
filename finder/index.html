@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>APLUS Secondary School Finder</title>
+<style>
+:root{--ink:#172033;--muted:#667085;--line:#e5e8ef;--primary:#5146b8;--soft:#f5f3ff;--bg:#f4f6fa}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(180deg,#f8f9fc,#eef2f7);font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;color:var(--ink)}
+.wrap{max-width:1240px;margin:auto;padding:20px 16px 60px}.top{display:flex;justify-content:space-between;align-items:center;padding:12px 15px;background:#fff;border:1px solid var(--line);border-radius:14px;margin-bottom:14px}.brand{font-size:11px;font-weight:900;letter-spacing:.14em;color:var(--primary)}.live{font-size:11px;color:#667085}
+.hero{background:linear-gradient(135deg,#e9efff,#e4e8ff);border-radius:22px;padding:30px;position:relative;overflow:hidden}.hero h1{margin:5px 0;font-size:38px;letter-spacing:-.03em}.hero p{margin:6px 0;color:#526281}.status{margin-top:16px;padding:10px 12px;border-radius:10px;background:#ffffff9c;font-size:12px;color:#526281}
+.panel{background:#fff;border:1px solid var(--line);border-radius:18px;padding:20px;margin-top:16px;box-shadow:0 8px 24px #18203b0b}.panel h2{margin:0 0 15px;font-size:18px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.group{border:1px solid var(--line);border-radius:14px;padding:14px}.group h3{margin:0 0 9px;font-size:13px}.options{display:flex;flex-wrap:wrap;gap:7px}.opt{border:1px solid #dfe2eb;background:#fff;border-radius:999px;padding:8px 10px;font-size:12px;cursor:pointer}.opt.active{background:var(--soft);border-color:#c9c1ff;color:var(--primary);font-weight:800}.actions{display:flex;gap:9px;margin-top:16px}.btn{border:0;border-radius:11px;padding:12px 16px;font-weight:800;cursor:pointer}.primary{background:var(--primary);color:#fff}.secondary{background:#f0f2f6;color:#344054}.summary{display:flex;gap:8px;flex-wrap:wrap;margin:15px 0}.chip{background:var(--soft);color:var(--primary);border:1px solid #e3defc;padding:6px 9px;border-radius:99px;font-size:11px;font-weight:800}
+.results-head{display:flex;justify-content:space-between;align-items:center;gap:10px}.count{font-size:20px;font-weight:900}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:14px}.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;box-shadow:0 6px 18px #18203b08}.card h3{font-size:16px;margin:9px 0 5px}.small{font-size:12px;color:var(--muted);line-height:1.65}.badges{display:flex;gap:6px;flex-wrap:wrap}.badge{background:#f2f1ff;color:var(--primary);padding:5px 8px;border-radius:999px;font-size:10px;font-weight:800}.link{margin-top:12px;color:var(--primary);font-size:12px;font-weight:900;cursor:pointer}.empty{padding:28px;text-align:center;color:var(--muted);border:1px dashed #d3d7e0;border-radius:12px}.modal{position:fixed;inset:0;background:#10182880;display:none;align-items:center;justify-content:center;padding:16px;z-index:50}.modal.show{display:flex}.sheet{background:#fff;border-radius:20px;max-width:980px;width:100%;max-height:90vh;overflow:auto;padding:22px}.sheet-head{display:flex;justify-content:space-between;gap:15px}.close{border:0;background:#f0f2f6;border-radius:10px;width:38px;height:38px;cursor:pointer}.profile-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:15px}.box{border:1px solid var(--line);border-radius:13px;padding:13px}.box h4{margin:0 0 8px;font-size:13px}.box p,.box div{font-size:12px;line-height:1.65;color:#475467}.row{padding:8px 0;border-bottom:1px solid #eef0f4}.row:last-child{border-bottom:0}.table{width:100%;border-collapse:collapse;font-size:11px}.table th,.table td{text-align:left;padding:7px;border-bottom:1px solid #edf0f4}.na{color:#98a2b3;font-style:italic}
+@media(max-width:900px){.grid,.cards{grid-template-columns:repeat(2,1fr)}}@media(max-width:600px){.grid,.cards,.profile-grid{grid-template-columns:1fr}.hero{padding:23px}.hero h1{font-size:29px}.top .live{display:none}.actions{flex-direction:column}.btn{width:100%}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top"><span class="brand">APLUS ACHIEVER</span><span class="live">APLUS Secondary School Finder · Database Edition</span></div>
+  <section class="hero">
+    <div class="brand">INDEPENDENT SCHOOL DISCOVERY ENGINE</div>
+    <h1>APLUS Secondary School Finder</h1>
+    <p>Find Singapore secondary schools by location, school type, academic pathways, subjects, programmes and CCA.</p>
+    <div id="status" class="status">Connecting to Finder database…</div>
+  </section>
+
+  <section class="panel">
+    <h2>Step 1 — Choose Your Preferences</h2>
+    <div class="grid">
+      <div class="group"><h3>LOCATION</h3><div id="location" class="options"></div></div>
+      <div class="group"><h3>SCHOOL TYPE</h3><div id="schoolType" class="options"></div></div>
+      <div class="group"><h3>GENDER</h3><div id="gender" class="options"></div></div>
+      <div class="group"><h3>ACADEMIC PATHWAYS</h3><div id="pathways" class="options"></div></div>
+      <div class="group"><h3>SUBJECTS</h3><div id="subjects" class="options"></div></div>
+      <div class="group"><h3>PROGRAMMES</h3><div id="programmes" class="options"></div></div>
+      <div class="group"><h3>CCA</h3><div id="cca" class="options"></div></div>
+      <div class="group"><h3>AFFILIATION</h3><div id="affiliation" class="options"></div></div>
+    </div>
+    <div id="summary" class="summary"></div>
+    <div class="actions"><button id="find" class="btn primary">Find Schools</button><button id="clear" class="btn secondary">Clear Filters</button></div>
+  </section>
+
+  <section class="panel">
+    <div class="results-head"><div><div class="count" id="count">147 Schools</div><div class="small">Results are filtered from the Finder-owned database snapshot.</div></div><button id="showAll" class="btn secondary">Show All</button></div>
+    <div id="results" class="cards"></div>
+  </section>
+</div>
+
+<div id="modal" class="modal"><div class="sheet"><div class="sheet-head"><div><div id="mType" class="brand"></div><h2 id="mName" style="margin:5px 0"></h2><div id="mMeta" class="small"></div></div><button id="close" class="close">×</button></div><div id="profile" class="profile-grid"></div></div></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const URL='https://mktszwqyklmrxzynzmtv.supabase.co';
+const KEY='sb_publishable_b2XJwxjy8jzh6WfrepA5tQ__y9Xab2u';
+const db=supabase.createClient(URL,KEY,{global:{headers:{'x-client-info':'aplus-secondary-school-finder'}}});
+let schools=[],selected={location:[],schoolType:[],gender:[],pathways:[],subjects:[],programmes:[],cca:[],affiliation:[]};
+const esc=v=>String(v??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const arr=v=>Array.isArray(v)?v:[]; const na=v=>(v&&String(v).trim())?esc(v):'<span class="na">Not Applicable</span>';
+function setStatus(x){document.getElementById('status').textContent=x}
+function values(key){
+ if(key==='location') return [...new Set(schools.map(x=>x.zone).filter(Boolean))].sort();
+ if(key==='schoolType') return ['GOVERNMENT','GOVERNMENT-AIDED','INDEPENDENT'];
+ if(key==='gender') return ['COED','BOYS','GIRLS'];
+ if(key==='pathways') return ['IP','SAP','Autonomous','Posting Group 1','Posting Group 2','Posting Group 3'];
+ if(key==='subjects') return ['Science','Computing','Higher Chinese','Humanities','Art','Music','D&T','Food & Consumer Education'];
+ if(key==='programmes') return ['ALP','LLP','Talent Programmes','Special Programmes'];
+ if(key==='cca') return ['Sports','Performing Arts','Clubs & Societies','Uniformed Groups'];
+ if(key==='affiliation') return ['Affiliated','Non-Affiliated'];
+ return [];
+}
+function renderFilters(){
+ const ids={location:'location',schoolType:'schoolType',gender:'gender',pathways:'pathways',subjects:'subjects',programmes:'programmes',cca:'cca',affiliation:'affiliation'};
+ Object.entries(ids).forEach(([key,id])=>{const box=document.getElementById(id);box.innerHTML=values(key).map(v=>'<button class="opt '+(selected[key].includes(v)?'active':'')+'" data-key="'+key+'" data-value="'+esc(v)+'">'+esc(v)+'</button>').join('')});
+ document.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{const k=b.dataset.key,v=b.dataset.value;selected[k]=selected[k].includes(v)?selected[k].filter(x=>x!==v):[...selected[k],v];renderFilters();renderSummary()});
+}
+function renderSummary(){const s=[];Object.values(selected).forEach(a=>a.forEach(v=>s.push(v)));document.getElementById('summary').innerHTML=s.length?s.map(x=>'<span class="chip">'+esc(x)+'</span>').join(''):'<span class="small">No filters selected — showing all active secondary schools.</span>'}
+function hasSubject(s,choice){const names=arr(s.subjects).map(x=>String(x.name||'').toLowerCase());const q=choice.toLowerCase();if(q==='science')return names.some(n=>/(science|physics|chemistry|biology)/.test(n));if(q==='computing')return names.some(n=>/(computing|computer science)/.test(n));if(q==='higher chinese')return names.some(n=>/higher chinese/.test(n));if(q==='humanities')return names.some(n=>/(history|geography|literature|humanities|social studies)/.test(n));if(q==='art')return names.some(n=>/art/.test(n));if(q==='music')return names.some(n=>/music/.test(n));if(q==='d&t')return names.some(n=>/(design.*technology|d&t)/.test(n));if(q==='food & consumer education')return names.some(n=>/(food|consumer).*education|nutrition/.test(n));return false}
+function hasProgramme(s,choice){const p=arr(s.programmes).map(x=>String(x.name||'').toLowerCase());const d=arr(s.distinctive_programmes);if(choice==='ALP')return d.some(x=>x.alp_title||x.alp_domain)||p.some(x=>x.includes('alp'));if(choice==='LLP')return d.some(x=>x.llp_title||x.llp_domain1)||p.some(x=>x.includes('llp'));if(choice==='Talent Programmes')return p.some(x=>/(talent|sports|music|art)/.test(x));if(choice==='Special Programmes')return p.some(x=>/(special|bicultural|sap|mep|msp|aep|ctp)/.test(x));return false}
+function hasCca(s,choice){const g=arr(s.cca).map(x=>String(x.group||'').toLowerCase());return g.some(x=>x.includes(choice.toLowerCase().replace(' & ',' ')))}
+function hasAffiliation(s,choice){const a=arr(s.affiliations).length>0;return choice==='Affiliated'?a:!a}
+function matches(s){
+ if(selected.location.length&&!selected.location.includes(s.zone))return false;
+ if(selected.schoolType.length&&!selected.schoolType.includes(s.school_type))return false;
+ if(selected.gender.length&&!selected.gender.includes(s.gender))return false;
+ if(selected.pathways.length&&!selected.pathways.some(v=>arr(s.academic_pathways).includes(v)))return false;
+ if(selected.subjects.length&&!selected.subjects.some(v=>hasSubject(s,v)))return false;
+ if(selected.programmes.length&&!selected.programmes.some(v=>hasProgramme(s,v)))return false;
+ if(selected.cca.length&&!selected.cca.some(v=>hasCca(s,v)))return false;
+ if(selected.affiliation.length&&!selected.affiliation.some(v=>hasAffiliation(s,v)))return false;
+ return true;
+}
+function latestCop(s){const a=arr(s.cop_history).filter(x=>x.cop!=null).sort((a,b)=>Number(b.year)-Number(a.year));return a[0]||null}
+function profileCard(s){
+ const cop=latestCop(s), paths=arr(s.academic_pathways);
+ return '<article class="card"><div class="badges"><span class="badge">'+esc(s.zone||'Not Applicable')+'</span><span class="badge">'+esc(s.gender||'Not Applicable')+'</span><span class="badge">'+esc(s.school_type||'Not Applicable')+'</span></div><h3>'+esc(s.official_name)+'</h3><div class="small">'+(paths.length?paths.map(esc).join(' · '):'Not Applicable')+'</div><div class="small">Historical COP: '+(cop?esc(cop.year+' · '+cop.programme_type+' · '+(cop.posting_group||'NA')+' · '+cop.affiliation_status+' · '+cop.cop):'<span class="na">Not Applicable</span>')+'</div><div class="link" data-id="'+s.school_id+'">View School Profile →</div></article>'
+}
+function renderResults(rows){document.getElementById('count').textContent=rows.length+' School'+(rows.length===1?'':'s')+' Found';document.getElementById('results').innerHTML=rows.length?rows.map(profileCard).join(''):'<div class="empty" style="grid-column:1/-1">No schools match the selected preferences.</div>';document.querySelectorAll('.link').forEach(x=>x.onclick=()=>openProfile(x.dataset.id))}
+function openProfile(id){
+ const s=schools.find(x=>x.school_id===id);if(!s)return;
+ document.getElementById('mType').textContent=(s.is_mixed_level?'MIXED LEVEL · ':'')+'SCHOOL PROFILE';
+ document.getElementById('mName').textContent=s.official_name;
+ document.getElementById('mMeta').textContent=[s.zone,s.gender,s.school_type,s.mainlevel_code].filter(Boolean).join(' · ');
+ const cp=latestCop(s), affiliations=arr(s.affiliations), dp=arr(s.distinctive_programmes), cca=arr(s.cca), subjects=arr(s.subjects);
+ const cop=arr(s.cop_history).sort((a,b)=>Number(b.year)-Number(a.year));
+ document.getElementById('profile').innerHTML=
+ box('School Overview','<b>School Type:</b> '+na(s.school_type)+'<br><b>Gender:</b> '+na(s.gender)+'<br><b>School Level:</b> '+na(s.mainlevel_code)+'<br><b>Mixed Level:</b> '+(s.is_mixed_level?na(s.mixed_level_type):'No'))+
+ box('Academic Pathways',arr(s.academic_pathways).length?arr(s.academic_pathways).map(x=>'<span class="badge">'+esc(x)+'</span>').join(' '):'<span class="na">Not Applicable</span>')+
+ box('Subjects',subjects.length?subjects.slice(0,60).map(x=>'<div class="row">'+esc(x.name)+'</div>').join(''):'<span class="na">Not Applicable</span>')+
+ box('Programmes',arr(s.programmes).length?arr(s.programmes).map(x=>'<div class="row">'+esc(x.name)+' '+(x.year?'· '+esc(x.year):'')+'</div>').join(''):'<span class="na">Not Applicable</span>')+
+ box('ALP / LLP',dp.length?dp.map(x=>'<div class="row"><b>ALP:</b> '+na(x.alp_title)+'<br><b>LLP:</b> '+na(x.llp_title)+'</div>').join(''):'<span class="na">Not Applicable</span>')+
+ box('CCA',cca.length?cca.slice(0,100).map(x=>'<div class="row">'+esc(x.group||'Not Applicable')+' · '+esc(x.customized_name||x.generic_name||'Not Applicable')+'</div>').join(''):'<span class="na">Not Applicable</span>')+
+ box('Affiliated Primary Schools',affiliations.length?affiliations.map(x=>'<div class="row">'+esc(x.primary_school_name)+'</div>').join(''):'<span class="na">Not Applicable</span>')+
+ box('Historical COP (2022 onward)',cop.length?'<table class="table"><tr><th>Year</th><th>Programme</th><th>Group</th><th>Affiliation</th><th>COP</th></tr>'+cop.map(x=>'<tr><td>'+esc(x.year)+'</td><td>'+esc(x.programme_type)+'</td><td>'+esc(x.posting_group||'NA')+'</td><td>'+esc(x.affiliation_status)+'</td><td><b>'+esc(x.cop)+'</b></td></tr>').join('')+'</table>':'<span class="na">Not Applicable</span>')+
+ box('Location & Transport','<b>Address:</b> '+na(s.address)+'<br><b>Postal:</b> '+na(s.postal_code)+'<br><b>MRT:</b> '+na(s.mrt_desc)+'<br><b>Bus:</b> '+na(s.bus_desc))+
+ box('School Website',s.website?'<a href="'+esc(s.website)+'" target="_blank" rel="noopener">Open Official School Website →</a>':'<span class="na">Not Applicable</span>');
+ document.getElementById('modal').classList.add('show');
+}
+function box(title,body){return '<div class="box"><h4>'+title+'</h4><div>'+body+'</div></div>'}
+async function load(){
+ setStatus('Loading Finder-owned school profiles…');
+ const {data,error}=await db.from('sf_public_school_finder').select('*').order('official_name');
+ if(error){setStatus('Finder database error: '+error.message);return}
+ schools=data||[];renderFilters();renderSummary();renderResults(schools);setStatus('Connected · '+schools.length+' active secondary school profiles loaded from APLUS Finder database.');
+}
+document.getElementById('find').onclick=()=>renderResults(schools.filter(matches));
+document.getElementById('showAll').onclick=()=>{selected={location:[],schoolType:[],gender:[],pathways:[],subjects:[],programmes:[],cca:[],affiliation:[]};renderFilters();renderSummary();renderResults(schools)};
+document.getElementById('clear').onclick=()=>document.getElementById('showAll').click();
+document.getElementById('close').onclick=()=>document.getElementById('modal').classList.remove('show');
+document.getElementById('modal').onclick=e=>{if(e.target.id==='modal')document.getElementById('modal').classList.remove('show')};
+load();
+</script>
+</body>
+</html>
