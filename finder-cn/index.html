@@ -24,7 +24,7 @@ document.getElementById('profile').innerHTML=
 (moeProg.length?moeProg.map(x=>'<div class="prog-item">'+E(x.name||x.official_name||'')+(x.year?'<div class="prog-meta">年份：'+E(x.year)+(x.status?' · 状态：'+E(x.status):'')+'</div>':'')+'</div>').join(''):'<div class="small">不适用</div>')+
 '</div>'+
 '<div class="prog-section"><div class="prog-title">应用学习课程（ALP）</div>'+
-(alp.length?alp.map(x=>'<div class="prog-item">'+E(x.alp_title)+(x.alp_domain?'<div class="prog-meta">领域：'+E(x.alp_domain):'')+(x.year_start||x.year_end?' · '+E(x.year_start||'')+'–'+E(x.year_end||''):'')+'</div>':'').join(''):'<div class="small">不适用</div>')+
+(alp.length?alp.map(x=>'<div class="prog-item">'+E(x.alp_title)+(x.alp_domain?'<div class="prog-meta">领域：'+E(x.alp_domain):'')+(x.year_start||x.year_end?' · '+E(x.year_start||'')+'–'+E(x.year_end||''):'')+'</div>').join(''):'<div class="small">不适用</div>')+
 '</div>'+
 '<div class="prog-section"><div class="prog-title">终身学习课程（LLP）</div>'+
 (llp.length?llp.map(x=>'<div class="prog-item">'+E(x.llp_title)+(x.llp_domain1?'<div class="prog-meta">领域：'+E(x.llp_domain1):'')+(x.year_start||x.year_end?' · '+E(x.year_start||'')+'–'+E(x.year_end||''):'')+'</div>':'').join(''):'<div class="small">不适用</div>')+
