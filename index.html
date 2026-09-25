@@ -116,6 +116,19 @@ body{background:linear-gradient(180deg,#f8fcf9 0,#f3faf4 55%,#edf7ef 100%)!impor
 html,body{background:#fff!important;color:var(--aplus-text)!important}
 .print-head{border-color:var(--aplus-green)!important}
 }
+</style><style id="aplus-password-gate">
+body.aplus-locked > *:not(#aplus-password-gate){visibility:hidden}
+#aplus-password-gate{position:fixed;inset:0;z-index:999999;display:flex;align-items:center;justify-content:center;padding:24px;background:#f3faf4;color:#1c3324}
+#aplus-password-gate .gate-card{width:min(420px,100%);background:#fff;border:1px solid #dcefe1;border-radius:22px;padding:32px;box-shadow:0 18px 50px rgba(44,125,71,.12);text-align:center}
+#aplus-password-gate .gate-brand{font-weight:900;color:#3f9d5f;font-size:13px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:10px}
+#aplus-password-gate h2{margin:0 0 8px;font-size:26px;color:#1c3324}
+#aplus-password-gate p{margin:0 0 22px;color:#6b8577;font-size:14px;line-height:1.6}
+#aplus-password-gate .gate-input{width:100%;box-sizing:border-box;border:1px solid #dcefe1;border-radius:12px;padding:13px 14px;background:#f3faf4;color:#1c3324;font-size:16px;text-align:center;outline:none}
+#aplus-password-gate .gate-input:focus{border-color:#3f9d5f;box-shadow:0 0 0 3px rgba(63,157,95,.12)}
+#aplus-password-gate .gate-btn{width:100%;margin-top:12px;border:0;border-radius:12px;padding:13px 16px;background:linear-gradient(135deg,#3f9d5f,#2c7d47);color:#fff;font-weight:900;font-size:15px;cursor:pointer}
+#aplus-password-gate .gate-btn:hover{opacity:.92}
+#aplus-password-gate .gate-error{min-height:20px;margin-top:10px;color:#b34a4a;font-size:13px}
+body.aplus-unlocked > #aplus-password-gate{display:none}
 </style></head>
 <body><main class="wrap">
 <section class="important-disclaimer" style="margin:24px 0 0;padding:18px 20px;background:#fff;border:1px solid #e5e8ef;border-radius:16px;box-shadow:0 6px 20px #18203b08"><h3 style="margin:0 0 12px;font-size:15px">重要免责声明</h3><ol style="margin:0;padding-left:20px;font-size:12px;line-height:1.7;color:#475467"><li><b>非官方填报系统：</b>本工具仅为辅助选校及数据信息参考工具，<b>并非</b>各级教育行政部门或学校的官方志愿填报与录取系统。通过本工具选择、模拟或生成的学校名单，<b>不代表</b>正式志愿填报成功，亦<b>不具有</b>任何法律效力或官方录取效力。</li><li><b>数据准确性限制：</b>本工具所使用的数据（包括但不限于学校招生简章、历年录取分数线、招生计划等）均来源于公开渠道或第三方整理。尽管我们努力确保信息准确，但由于学校招生政策、录取分数可能存在实时变动，本工具<b>不对数据的绝对准确性、时效性和完整性做任何明示或暗示的保证</b>。</li><li><b>决策自主与风险自担：</b>本工具提供的选校建议、匹配度分析等功能仅供用户参考。最终的学校选择与志愿填报属于用户独立自主的行为，用户需自行承担因使用本工具或依据其内容进行决策所带来的一切风险和后果。我们对任何由此产生的直接或间接损失不承担任何法律责任。</li></ol></section>
@@ -273,4 +286,40 @@ function renderPrintReport(){
 }
 (async()=>{ await bootstrapDatabase(); await loadTowns(); })();
 </script>
-</body></html>
+<div id="aplus-password-gate" role="dialog" aria-modal="true" aria-label="Password required">
+  <div class="gate-card">
+    <div class="gate-brand">APLUS ACHIEVER</div>
+    <h2>Planning Tool</h2>
+    <p>Please enter the access password to continue.</p>
+    <input id="aplus-gate-password" class="gate-input" type="password" inputmode="numeric" autocomplete="off" placeholder="Enter password" aria-label="Password">
+    <button id="aplus-gate-btn" class="gate-btn" type="button">Enter</button>
+    <div id="aplus-gate-error" class="gate-error" aria-live="polite"></div>
+  </div>
+</div><script id="aplus-password-gate-script">
+(function(){
+  document.body.classList.add('aplus-locked');
+  const unlockedKey='aplus_planning_access_2027';
+  if(sessionStorage.getItem(unlockedKey)==='1'){
+    document.body.classList.remove('aplus-locked');
+    document.body.classList.add('aplus-unlocked');
+    return;
+  }
+  const input=document.getElementById('aplus-gate-password');
+  const btn=document.getElementById('aplus-gate-btn');
+  const error=document.getElementById('aplus-gate-error');
+  function unlock(){
+    if(input.value==='2027'){
+      sessionStorage.setItem(unlockedKey,'1');
+      document.body.classList.remove('aplus-locked');
+      document.body.classList.add('aplus-unlocked');
+      error.textContent='';
+    }else{
+      error.textContent='Incorrect password. Please try again.';
+      input.select();
+    }
+  }
+  btn.addEventListener('click',unlock);
+  input.addEventListener('keydown',function(e){if(e.key==='Enter') unlock();});
+  setTimeout(function(){input.focus();},50);
+})();
+</script></body></html>
