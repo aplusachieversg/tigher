@@ -530,7 +530,7 @@ async function runMatch(){
 function renderResults(rows,score,town){
   lastRows=rows||[];lastScore=score;lastTown=town;
  const pool=rows.filter(x=>x.match_band!=='UNLIKELY').length;
- let h='<div class="stats"><div class="stat"><b>'+score+'</b><span class="muted">PSLE 分数 / PSLE Score</span></div><div class="stat"><b>'+esc(town)+'</b><span class="muted">地区参考 / Location Reference</span></div><div class="stat"><b>'+pool+'</b><span class="muted">广泛匹配池 / Broad Match Pool</span></div><div class="stat"><b>'+selected.length+'/6</b><span class="muted">我的选择 / My Choices</span></div></div><p class="muted"><b>PSLE Score + COP = core matching.</b> AREA / 地区 is a comparison reference and does not change the Match Band.</p>';
+ let h='<div class="stats"><div class="stat"><b>'+score+'</b><span class="muted">PSLE 分数 / PSLE Score</span></div><div class="stat"><b>'+esc(town)+'</b><span class="muted">地区参考 / Location Reference</span></div><div class="stat"><b>'+pool+'</b><span class="muted">广泛匹配池 / Broad Match Pool</span></div><div class="stat"><b>'+selected.length+'/6</b><span class="muted">考虑名单 / Consideration List</span></div></div><p class="muted"><b>PSLE Score + COP = core matching.</b> AREA / 地区 is a comparison reference and does not change the Match Band.</p>';
  bands.forEach(b=>{
    const a=rows.filter(x=>x.match_band===b);
    h+='<section class="band"><div class="bh"><h2>'+b+'</h2><span class="muted">'+a.length+' schools</span></div>';
