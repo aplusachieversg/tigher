@@ -119,10 +119,12 @@ html,body{background:#fff!important;color:var(--aplus-text)!important}
 </style><style id="aplus-consult-ui">
 .title-row{display:flex;align-items:center;justify-content:space-between;gap:18px;max-width:100%;position:relative;z-index:3}
 .title-row h1{margin:10px 0 3px;flex:1}
+.title-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap;justify-content:flex-end}
+.title-actions .wechat-contact{color:#3f9d5f!important;font-size:11px}
 .consult-btn{display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;padding:9px 13px;border-radius:9px;background:#3f9d5f;color:#fff;text-decoration:none;font-size:11px;font-weight:800;line-height:1.25;box-shadow:0 5px 14px rgba(44,125,71,.16);transition:transform .15s,box-shadow .15s,background .15s}
 .consult-btn:hover{background:#2c7d47;transform:translateY(-1px);box-shadow:0 8px 18px rgba(44,125,71,.22)}
-@media(max-width:900px){.title-row{align-items:flex-start;gap:12px}.consult-btn{font-size:10px;padding:8px 10px}}
-@media(max-width:560px){.title-row{display:block}.consult-btn{margin-top:7px;font-size:10px}.title-row h1{margin-bottom:0}.hero>.brand,.hero>.sub,.hero>.tag{max-width:100%}}
+@media(max-width:900px){.title-row{align-items:flex-start;gap:12px}.title-actions{gap:8px}.title-actions .wechat-contact{font-size:10px}.consult-btn{font-size:10px;padding:8px 10px}}
+@media(max-width:560px){.title-row{display:block}.title-actions{justify-content:flex-start;margin-top:7px;gap:8px}.title-actions .wechat-contact{font-size:10px}.consult-btn{font-size:10px}.title-row h1{margin-bottom:0}.hero>.brand,.hero>.sub,.hero>.tag{max-width:100%}}
 </style><style id="aplus-site-nav">
 .site-nav{display:flex;align-items:center;justify-content:space-between;gap:24px;margin:0 0 16px;padding:13px 18px;background:rgba(255,255,255,.96);border:1px solid #dcefe1;border-radius:14px;box-shadow:0 6px 20px rgba(44,125,71,.06);position:relative;z-index:50}
 .site-logo{color:#2c7d47;text-decoration:none;font-size:14px;font-weight:900;letter-spacing:.06em;white-space:nowrap}
@@ -147,8 +149,8 @@ html,body{background:#fff!important;color:var(--aplus-text)!important}
 </div>
 </nav><main class="wrap">
 <section class="important-disclaimer" style="margin:4px 0 0;padding:18px 20px;background:#fff;border:1px solid #e5e8ef;border-radius:16px;box-shadow:0 6px 20px #18203b08"><h3 style="margin:0 0 12px;font-size:15px">重要免责声明</h3><ol style="margin:0;padding-left:20px;font-size:12px;line-height:1.7;color:#475467"><li><b>非官方填报系统：</b>本工具仅为辅助选校及数据信息参考工具，<b>并非</b>各级教育行政部门或学校的官方志愿填报与录取系统。通过本工具选择、模拟或生成的学校名单，<b>不代表</b>正式志愿填报成功，亦<b>不具有</b>任何法律效力或官方录取效力。</li><li><b>数据准确性限制：</b>本工具所使用的数据（包括但不限于学校招生简章、历年录取分数线、招生计划等）均来源于公开渠道或第三方整理。尽管我们努力确保信息准确，但由于学校招生政策、录取分数可能存在实时变动，本工具<b>不对数据的绝对准确性、时效性和完整性做任何明示或暗示的保证</b>。</li><li><b>决策自主与风险自担：</b>本工具提供的选校建议、匹配度分析等功能仅供用户参考。最终的学校选择与志愿填报属于用户独立自主的行为，用户需自行承担因使用本工具或依据其内容进行决策所带来的一切风险和后果。我们对任何由此产生的直接或间接损失不承担任何法律责任。</li></ol></section>
-<div class="modulebar"><span>选校匹配 / MATCHING MODULE</span><span><a class="wechat-contact" href="#" onclick="openWechat(event)">💬 微信号码：APLUSACHIEVER</a></span></div><section class="hero">
-<div class="brand">APLUS ACHIEVER</div><div class="title-row"><h1>APLUS PSLE SmartMatch</h1><a class="consult-btn" href="https://wa.me/6598816223" target="_blank" rel="noopener noreferrer">咨询升学顾问 / Speak to an Education Consultant</a></div><div class="sub">PSLE 中学选校匹配引擎 / Secondary School SmartMatch</div><div class="tag">先看匹配范围，再由家长决定最终6所 / Review the match range, then choose your final 6</div>
+<div class="modulebar"><span>选校匹配 / MATCHING MODULE</span></div><section class="hero">
+<div class="brand">APLUS ACHIEVER</div><div class="title-row"><h1>APLUS PSLE SmartMatch</h1><div class="title-actions"><a class="wechat-contact" href="#" onclick="openWechat(event)">💬 微信号码：APLUSACHIEVER</a><a class="consult-btn" href="https://wa.me/6598816223" target="_blank" rel="noopener noreferrer">咨询升学顾问 / Speak to an Education Consultant</a></div></div><div class="sub">PSLE 中学选校匹配引擎 / Secondary School SmartMatch</div><div class="tag">先看匹配范围，再由家长决定最终6所 / Review the match range, then choose your final 6</div>
 
 <div class="form">
 <div class="f"><label>PSLE 分数 / PSLE SCORE</label><input id="score" type="number" min="4" max="32" value="7"></div>
